@@ -6,7 +6,7 @@ import { useTransition, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { LoginSchema } from '@/schemas';
+import { RegisterSchema } from '@/schemas';
 
 import {
   Form,
@@ -21,27 +21,29 @@ import { Button } from "@/components/ui/button";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 
-import { login } from '@/actions/login';
+import { register } from '@/actions/register';
 
-export const LoginForm = () => {
+export const RegisterForm = () => {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
 
-  const form = useForm<z.infer<typeof LoginSchema>>({
-    resolver: zodResolver(LoginSchema),
+  const form = useForm<z.infer<typeof RegisterSchema>>({
+    resolver: zodResolver(RegisterSchema),
     defaultValues: {
+      name: "",
       email: "",
-      password: ""
+      password: "",
+      rep_password: ""
     }
   });
 
-  const handleSubmit = (values: z.infer<typeof LoginSchema>) => {
+  const handleSubmit = (values: z.infer<typeof RegisterSchema>) => {
     setError("");
     setSuccess("");
 
     startTransition(() => {
-      login(values)
+      register(values)
         .then((data) => {
           setError(data.error);
           setSuccess(data.success);
@@ -51,9 +53,9 @@ export const LoginForm = () => {
 
   return (
     <CardWrapper
-      headerLabel="Bienvenido de vuelta!"
-      backButtonLabel="No tienes una cuenta?"
-      backButtonHref="/auth/register"
+      headerLabel="Crear nueva cuenta"
+      backButtonLabel="Ya tienes una cuenta?"
+      backButtonHref="/auth/login"
       showSocial
     >
       <Form {...form}>
@@ -64,6 +66,23 @@ export const LoginForm = () => {
           <div className="space-y-4">
             <FormField
               control={form.control}
+              name="name"
+              render={({field}) => (
+                <FormItem>
+                  <FormLabel>Nombre</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      disabled={isPending}
+                      placeholder="Ingresa tu nombre..."
+                    />
+                  </FormControl>
+                  <FormMessage/>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
               name="email"
               render={({field}) => (
                 <FormItem>
@@ -72,7 +91,7 @@ export const LoginForm = () => {
                     <Input
                       {...field}
                       disabled={isPending}
-                      placeholder="Ingresa tu Email..."
+                      placeholder="Ingresar Email..."
                       type="email"
                     />
                   </FormControl>
@@ -90,7 +109,25 @@ export const LoginForm = () => {
                     <Input
                       {...field}
                       disabled={isPending}
-                      placeholder="******"
+                      placeholder="Ingresar contraseña..."
+                      type="password"
+                    />
+                  </FormControl>
+                  <FormMessage/>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="rep_password"
+              render={({field}) => (
+                <FormItem>
+                  <FormLabel>Repetir Contraseña</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      disabled={isPending}
+                      placeholder="Repetir contraseña..."
                       type="password"
                     />
                   </FormControl>
@@ -106,7 +143,7 @@ export const LoginForm = () => {
             type="submit"
             className="w-full"
           >
-            Ingresar
+            Crear cuenta
           </Button>
         </form>
       </Form>

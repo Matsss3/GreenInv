@@ -10,7 +10,7 @@ const font = Poppins({
 
 export default function Home() {
   return (
-    <main className="flex h-full flex-col items-center justify-center">
+    <main className="flex h-full flex-col items-center justify-center bg-sky-100">
       <LoginButton>
         <Button className={cn("font-semibold", font.className)} size="lg">
           Sign In
