@@ -1,7 +1,21 @@
-import Image from "next/image";
+import { Poppins } from "next/font/google";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { LoginButton } from "@/components/auth/login-button";
+
+const font = Poppins({
+  subsets: ["latin"],
+  weight: ["600"]
+});
 
 export default function Home() {
   return (
-    <div>Test</div>
+    <main className="flex h-full flex-col items-center justify-center">
+      <LoginButton>
+        <Button className={cn("font-semibold", font.className)} size="lg">
+          Sign In
+        </Button>
+      </LoginButton>
+    </main>
   );
 }
