@@ -1,25 +1,28 @@
 import * as z from 'zod';
 
 export const LoginSchema = z.object({
-  email: z.string().email({
+  email: z.coerce.string().email({
     message: "El Email es obligatorio"
   }),
-  password: z.string().min(1, {
+  password: z.coerce.string().min(1, {
     message: "La contraseña es obligatoria"
   })
 });
 
 export const RegisterSchema = z.object({
-  name: z.string().min(1, {
+  name: z.coerce.string().min(1, {
     message: "El nombre es obligatorio"
   }),
-  email: z.string().email({
+  email: z.coerce.string().email({
     message: "El Email es obligatorio"
   }),
-  password: z.string().min(6, {
+  password: z.coerce.string().min(6, {
     message: "La contraseña debe contener minimo 6 caracteres"
   }),
-  rep_password: z.string().min(6, {
+  rep_password: z.coerce.string().min(6, {
     message: "Las contraseñas no coinciden"
   })
+}).refine((data) => data.password === data.rep_password, {
+  message: "Las contraseñas no coinciden",
+  path: ["rep_password"]
 });
