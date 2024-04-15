@@ -14,16 +14,20 @@ export const getVerifTokenByEmail = async (email: string) => {
   }
 };
 
-export const getVerifTokenByToken = async (token: string) => {
-  try {
-    const verificationToken = await db.verificationToken.findUnique({
-      where: {
-        token
-      }
-    });
+export const getVerifTokenByToken = async (token: string | null) => {
+  if (token) {
+    try {
+      const verificationToken = await db.verificationToken.findUnique({
+        where: {
+          token
+        }
+      });
 
-    return verificationToken;
-  } catch (error) {
-    return null;
+      return verificationToken;
+    } catch (error) {
+      return null;
+    }
   }
+  
+  return null;
 };
