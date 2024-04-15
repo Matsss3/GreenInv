@@ -3,10 +3,11 @@
 import { CardWrapper } from "@/components/auth/card-wrapper";
 
 import { useTransition, useState } from 'react';
+import { useSearchParams } from "next/navigation";
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { LoginSchema } from '@/schemas';
+import { NewPassSchema } from '@/schemas';
 
 import {
   Form,
@@ -21,28 +22,31 @@ import { Button } from "@/components/ui/button";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 
-import { login } from '@/actions/login';
-import Link from "next/link";
+import { new_password } from '@/actions/new-password';
 
-export const LoginForm = () => {
+export const NewPassForm = () => {
+  const searchParams = useSearchParams();
+  const token = searchParams.get("token");
+
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
 
-  const form = useForm<z.infer<typeof LoginSchema>>({
-    resolver: zodResolver(LoginSchema),
+  const form = useForm<z.infer<typeof NewPassSchema>>({
+    resolver: zodResolver(NewPassSchema),
     defaultValues: {
-      email: "",
-      password: ""
+      password: "",
+      new_password: "",
+      rep_password: ""
     }
   });
 
-  const handleSubmit = (values: z.infer<typeof LoginSchema>) => {
+  const handleSubmit = (values: z.infer<typeof NewPassSchema>) => {
     setError("");
     setSuccess("");
 
     startTransition(() => {
-      login(values)
+      new_password(values, token)
         .then((data) => {
           setError(data?.error);
           setSuccess(data?.success);
@@ -52,10 +56,9 @@ export const LoginForm = () => {
 
   return (
     <CardWrapper
-      headerLabel="Bienvenido de vuelta!"
-      backButtonLabel="No tienes una cuenta?"
-      backButtonHref="/auth/register"
-      showSocial
+      headerLabel="Cambiar Contraseña?"
+      backButtonLabel="Vuelve a Ingresar"
+      backButtonHref="/auth/login"
     >
       <Form {...form}>
         <form 
@@ -65,16 +68,16 @@ export const LoginForm = () => {
           <div className="space-y-4">
             <FormField
               control={form.control}
-              name="email"
+              name="password"
               render={({field}) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>Contraseña Actual</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       disabled={isPending}
-                      placeholder="Ingresa tu Email..."
-                      type="email"
+                      placeholder="Ingresa tu contraseña actual..."
+                      type="password"
                     />
                   </FormControl>
                   <FormMessage/>
@@ -83,28 +86,36 @@ export const LoginForm = () => {
             />
             <FormField
               control={form.control}
-              name="password"
+              name="new_password"
               render={({field}) => (
                 <FormItem>
-                  <FormLabel>Contraseña</FormLabel>
+                  <FormLabel>Nueva Contraseña</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       disabled={isPending}
-                      placeholder="******"
+                      placeholder="Ingresa una nueva contraseña..."
                       type="password"
                     />
                   </FormControl>
-                  <Button
-                    size="sm"
-                    variant="link"
-                    asChild
-                    className="px-0 font-normal"
-                  >
-                    <Link href="/auth/reset">
-                      Olvidaste tu contraseña?
-                    </Link>
-                  </Button>
+                  <FormMessage/>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="rep_password"
+              render={({field}) => (
+                <FormItem>
+                  <FormLabel>Repetir Contraseña</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      disabled={isPending}
+                      placeholder="Repetir contraseña..."
+                      type="password"
+                    />
+                  </FormControl>
                   <FormMessage/>
                 </FormItem>
               )}
@@ -117,7 +128,7 @@ export const LoginForm = () => {
             type="submit"
             className="w-full"
           >
-            Ingresar
+            Guardar Contraseña
           </Button>
         </form>
       </Form>

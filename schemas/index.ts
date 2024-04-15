@@ -26,3 +26,24 @@ export const RegisterSchema = z.object({
   message: "Las contraseñas no coinciden",
   path: ["rep_password"]
 });
+
+export const ResetSchema = z.object({
+  email: z.coerce.string().email({
+    message: "El Email es obligatorio"
+  }),
+});
+
+export const NewPassSchema = z.object({
+  password: z.coerce.string().min(1, {
+    message: "La contraseña actual es obligatoria"
+  }),
+  new_password: z.coerce.string().min(6, {
+    message: "La nueva contraseña debe contener minimo 6 caracteres"
+  }),
+  rep_password: z.coerce.string().min(6, {
+    message: "Las contraseñas no coinciden"
+  })
+}).refine((data) => data.new_password === data.rep_password, {
+  message: "Las contraseñas no coinciden",
+  path: ["rep_password"]
+});
