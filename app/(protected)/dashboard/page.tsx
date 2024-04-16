@@ -1,23 +1,13 @@
-import { auth, signOut } from '@/auth';
+"use client";
 
-const Dashboard = async () => {
-  const session = await auth();
+import { useCurrentUser } from '@/hooks/useCurrentUser';
 
-  const sessionString = JSON.stringify(session);
-  const sessionObject = JSON.parse(sessionString);
+const Dashboard = () => {
+  const user = useCurrentUser();
+
   return (
     <div>
-      <h1>{sessionObject.user.name}</h1>
-      <h2>{sessionObject.user.email}</h2>
-      <hr></hr>
-      {sessionString}
-      <form action={async () => {
-        "use server";
-
-        await signOut();
-      }}>
-        <button type="submit">Sign Out</button>
-      </form>
+      {JSON.stringify(user)}
     </div>
   );
 };
