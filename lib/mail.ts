@@ -23,3 +23,12 @@ export const sendResetMail = async (email: string, token: string) => {
     html: `<p>Haz click <a href="${resetLink}">aqui</a> para reestablecer tu contraseña.</p>`
   });
 };
+
+export const sendTwoFactorMail = async (email: string, token: string) => {
+  await resend.emails.send({
+    from: "onboarding@resend.dev",
+    to: email,
+    subject: "Codigo para Verificacion de Dos Pasos",
+    html: `<p>Tu codigo de verificacion: ${token}</p>`
+  });
+};

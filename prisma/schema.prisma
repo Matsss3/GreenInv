@@ -22,6 +22,8 @@ model User {
   password      String?
   role          UserRole        @default(USER)
   accounts      Account[]
+  isTFAEnabled  Boolean         @default(false)
+  TFConfirm     TFConfirm?
 }
 
 model Account {
@@ -62,4 +64,22 @@ model PassResetToken {
   expires_at        DateTime
 
   @@unique([email, token])
+}
+
+model TFToken {
+  id                String      @id @default(cuid())
+  email             String
+  token             String      @unique
+  expires_at        DateTime
+
+  @@unique([email, token])
+}
+
+model TFConfirm {
+  id                String      @id @default(cuid())
+  userId            String
+  
+  user              User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId])
 }

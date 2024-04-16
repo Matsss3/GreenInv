@@ -6,7 +6,10 @@ export const LoginSchema = z.object({
   }),
   password: z.coerce.string().min(1, {
     message: "La contraseña es obligatoria"
-  })
+  }),
+  code: z.optional(z.coerce.string().min(6, {
+    message: "El codigo debe contener 6 caracteres"
+  }))
 });
 
 export const RegisterSchema = z.object({
