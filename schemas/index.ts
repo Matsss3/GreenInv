@@ -50,3 +50,25 @@ export const NewPassSchema = z.object({
   message: "Las contraseñas no coinciden",
   path: ["rep_password"]
 });
+
+export const SettingsSchema = z.object({
+  name: z.optional(z.coerce.string()),
+  email: z.optional(z.coerce.string().email()),
+  isTFAEnabled: z.optional(z.boolean()),
+  password: z.optional(z.string()),
+  new_password: z.optional(z.string().min(6, {
+    message: "La nueva contraseña debe contener minimo 6 caracteres"
+  }))
+}).refine((data) => {
+  if (data.password && !data.new_password) return false;
+  return true;
+}, {
+  message: "La nueva contraseña es obligatoria",
+  path: ["new_password"]
+}).refine((data) => {
+  if (!data.password && data.new_password) return false;
+  return true;
+}, {
+  message: "La contraseña es obligatoria",
+  path: ["password"]
+});

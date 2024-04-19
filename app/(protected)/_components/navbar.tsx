@@ -1,10 +1,9 @@
 "use client";
 
-import { signOut } from 'next-auth/react';
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
-import { UserButton } from '@/components/auth/user-button';
+import { UserButton } from '../_components/user-button';
 
 export const Navbar = () => {
   const pathname = usePathname();

@@ -6,15 +6,7 @@ import { getUserById } from "@/data/user";
 import { db } from '@/lib/db';
 import authConfig from '@/auth.config'
 import { getTwoFactorConfirmationByUserId } from "@/data/two-factor-confirmation";
-
-declare module "next-auth" {
-  interface Session {
-    user: {
-      image: string | undefined;
-      role: UserRole
-    }
-  }
-}
+import { getAccountByUserId } from "./data/account";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   events: {
@@ -58,6 +50,13 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         session.user.role = token.role as UserRole;
       }
 
+      if (session.user) {
+        session.user.isTFAEnabled = token.isTFAEnabled as boolean;
+        session.user.name = token.name;
+        session.user.email = token.email as string;
+        session.user.isOAuth = token.isOAuth as boolean;
+      }
+
       return session;
     },
 
@@ -68,7 +67,13 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 
       if (!user) return token;
 
+      const existingAccount = await getAccountByUserId(user.id);
+
+      token.isOAuth = !!existingAccount;
+      token.name = user.name;
+      token.email = user.email;
       token.role = user.role;
+      token.isTFAEnabled = user.isTFAEnabled;
 
       return token;
     }
