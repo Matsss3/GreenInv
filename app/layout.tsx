@@ -27,7 +27,7 @@ export default function RootLayout({
           <Link href="/" className="inline-flex items-center gap-2.5 text-2xl font-bold text-black md:text-3xl">
             GreenInv
           </Link>
-          <nav className="hidden gap-12 lg:flex">
+          <nav className="flex gap-2.5 md:gap-6 lg:gap-12">
             <LoginButton>
               <Button size="lg" variant="outline">Log In</Button>
             </LoginButton>
@@ -36,7 +36,7 @@ export default function RootLayout({
             </Link>
           </nav>
         </header>
-        <main className="h-full pt-10 md:pt-20 lg:pt-[10rem] mx-auto px-8 md:px-[10rem] bg-white">
+        <main className="h-full pt-16 md:pt-18 lg:pt-[8rem] bg-white">
           {children}
         </main>
       </body>
