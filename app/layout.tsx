@@ -36,7 +36,7 @@ export default function RootLayout({
             </Link>
           </nav>
         </header>
-        <main className="h-full mt-10 md:mt-[5rem] lg:mt-[7rem] bg-sky-100">
+        <main className="h-full pt-10 md:pt-20 lg:pt-[10rem] mx-auto px-8 md:px-[10rem] bg-[#FAF1E4]">
           {children}
         </main>
       </body>
