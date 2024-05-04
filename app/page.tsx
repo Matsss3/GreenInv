@@ -12,8 +12,6 @@ import { useEffect } from "react";
 import 'aos/dist/aos.css';
 
 export default function Home() {
-  // TODO: Update Features
-
   useEffect(() => {
     AOS.init({
       easing: "ease-in-out"
@@ -31,7 +29,7 @@ export default function Home() {
 
         <div className="absolute inset-0 bg-[#9EB384] mix-blend-multiply"></div>
 
-        <div className="relative flex flex-col items-center p-4 sm:max-w-xl gap-2.5">
+        <div className="relative flex flex-col items-center p-8 sm:max-w-xl gap-2.5">
           <p className="mb-4 text-center text-lg text-white sm:text-xl md:mb-8">Consectetur odipucing elit, sed ed</p>
           <h1 className="mb-8 text-center text-4xl font-bold text-white sm:text-5xl md:mb-12 md:text-6xl"><q>Tu Evento en Pantalla</q></h1>
           <div className="flex w-full flex-col gap-10 sm:flex-row sm:justify-center">
@@ -48,11 +46,11 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <div data-aos="fade-up" className="mb-10 md:mb-16" id="funcionalidades">
+      <div data-aos="fade-up" className="mb-8 md:mb-14" id="funcionalidades">
         <h2 className="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl">Funcionalidades de Nuestras Invitaciones</h2>
         <p className="mx-auto max-w-screen-md text-center text-gray-500 md:text-lg">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum iure aliquam eaque nemo vero nesciunt labore deleniti omnis ea dicta.</p>
       </div>
-      <div className="mb-16 md:mb-20 grid gap-12 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xl:gap-16">
+      <div className="mb-16 min-h-[60vh] md:mb-20 grid gap-x-12 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xl:gap-x-16 xl:gap-y-8 gap-y-6">
         <Feature
           minimalistic
           title="Save the Date"

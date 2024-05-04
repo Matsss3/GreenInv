@@ -16,7 +16,7 @@ export const Feature = ({
   // <p className="group-hover:opacity-0 transition-all duration-75 text-center text-gray-500">{description}</p>
 
   return (
-    <div data-aos="fade-up" className="flex flex-col items-center relative group">
+    <div data-aos="fade-up" className="flex flex-col items-center justify-center relative group">
       {minimalistic && (
         <div className="transition-all duration-75 mb-5 flex h-12 w-12 items-center justify-center rounded-lg bg-[#435334] shadow-lg md:h-14 md:w-14 md:rounded-xl group-hover:opacity-0">
           <Image
