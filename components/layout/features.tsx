@@ -1,7 +1,6 @@
 import Image from "next/image";
 
 interface FeatureProps {
-  children?: React.ReactNode,
   title: string,
   description?: string,
   minimalistic?: boolean,
@@ -9,16 +8,17 @@ interface FeatureProps {
 };
 
 export const Feature = ({
-  children,
   title,
   description,
   minimalistic,
   src
 }: FeatureProps) => {
+  // <p className="group-hover:opacity-0 transition-all duration-75 text-center text-gray-500">{description}</p>
+
   return (
-    <div data-aos="fade-up" className="flex flex-col items-center">
+    <div data-aos="fade-up" className="flex flex-col items-center relative group">
       {minimalistic && (
-        <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-lg bg-[#435334] shadow-lg md:h-14 md:w-14 md:rounded-xl">
+        <div className="transition-all duration-75 mb-5 flex h-12 w-12 items-center justify-center rounded-lg bg-[#435334] shadow-lg md:h-14 md:w-14 md:rounded-xl group-hover:opacity-0">
           <Image
             alt="Icon"
             src={src}
@@ -28,7 +28,7 @@ export const Feature = ({
           />
         </div>
       ) || (
-        <div className="mb-5 flex h-12 w-12 items-center justify-center md:h-14 md:w-14">
+        <div className="transition-all duration-75 mb-5 flex h-12 w-12 items-center justify-center md:h-14 md:w-14 group-hover:opacity-0">
           <Image
             alt="Icon"
             src={src}
@@ -38,8 +38,11 @@ export const Feature = ({
           />
         </div>
       )}
-      <h3 className="mb-2 text-center text-lg font-semibold md:text-lg">{title}</h3>
-      <p className="text-center text-gray-500">{description}</p>
+      <h3 className="group-hover:opacity-0 transition-all duration-75 mb-2 text-center text-lg font-semibold md:text-lg">{title}</h3>
+
+      <span className="absolute inset-0 opacity-0 bg-[#435334] rounded-lg shadow-lg transition-all duration-300 ease-in-out transform rotateY group-hover:opacity-100 delay-50 flex items-center justify-center cursor-default">
+        <h3 className="font-semibold text-center text-lg text-white p-8">{description}</h3>
+      </span>
     </div>
   );
 };

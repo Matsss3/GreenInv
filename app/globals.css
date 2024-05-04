@@ -81,3 +81,11 @@ html,
     @apply bg-background text-foreground;
   }
   }
+
+.rotateY {
+  transform: rotateY(90deg);
+}
+
+.group:hover > .rotateY {
+  transform: rotateY(0deg);
+}
