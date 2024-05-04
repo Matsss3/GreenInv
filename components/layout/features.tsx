@@ -16,7 +16,7 @@ export const Feature = ({
   src
 }: FeatureProps) => {
   return (
-    <div className="flex flex-col items-center">
+    <div data-aos="fade-up" className="flex flex-col items-center">
       {minimalistic && (
         <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-lg bg-[#435334] shadow-lg md:h-14 md:w-14 md:rounded-xl">
           <Image

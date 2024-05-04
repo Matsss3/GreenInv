@@ -1,3 +1,5 @@
+"use client";
+
 import { Feature } from "@/components/layout/features";
 import { Footer } from "@/components/layout/footer";
 import { ImageCard } from "@/components/layout/image-card";
@@ -5,15 +7,29 @@ import { Button } from "@/components/ui/button";
 import Image from 'next/image';
 import Link from "next/link";
 
+import AOS from 'aos';
+import { useEffect } from "react";
+import 'aos/dist/aos.css';
+
 export default function Home() {
   // TODO: Update Features
 
+  useEffect(() => {
+    AOS.init({
+      easing: "ease-in-out"
+    });
+  }, []);
+
   return (
     <div className="mx-auto px-8 md:px-[10rem]">
-      <section className="min-h-[80vh] relative flex flex-1 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-gray-100 py-16 shadow-lg md:py-20 xl:py-48 mb-16">
+      <section
+        data-aos-duration="600"
+        data-aos="fade-up"
+        className="min-h-[80vh] relative flex flex-1 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-gray-100 py-16 shadow-lg md:py-20 xl:py-48 mb-16"
+      >
         <Image src="https://images.unsplash.com/photo-1501059520966-c59141726d6c?auto=format&q=75&fit=crop&w=1500" width="1000" height="1000" alt="bg-photo" loading="lazy" className="absolute inset-0 h-full w-full object-cover object-center"/>
 
-        <div className="absolute inset-0 bg-[#435334] mix-blend-multiply"></div>
+        <div className="absolute inset-0 bg-[#9EB384] mix-blend-multiply"></div>
 
         <div className="relative flex flex-col items-center p-4 sm:max-w-xl gap-2.5">
           <p className="mb-4 text-center text-lg text-white sm:text-xl md:mb-8">Consectetur odipucing elit, sed ed</p>
@@ -32,7 +48,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <div className="mb-10 md:mb-16" id="funcionalidades">
+      <div data-aos="fade-up" className="mb-10 md:mb-16" id="funcionalidades">
         <h2 className="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl">Funcionalidades de Nuestras Invitaciones</h2>
         <p className="mx-auto max-w-screen-md text-center text-gray-500 md:text-lg">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum iure aliquam eaque nemo vero nesciunt labore deleniti omnis ea dicta.</p>
       </div>
@@ -128,11 +144,11 @@ export default function Home() {
           description="Datos sobre traslados, hospedajes, etc"
         />
       </div>
-      <div className="mb-10 md:mb-16">
+      <div data-aos="fade-up" className="mb-10 md:mb-16" id="invitaciones">
         <h2 className="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl">Modelos de nuestras Invitaciones</h2>
         <p className="mx-auto max-w-screen-md text-center text-gray-500 md:text-lg">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum iure aliquam eaque nemo vero nesciunt labore deleniti omnis ea dicta.</p>
       </div>
-      <div className="grid gap-6 sm:grid-cols-3 mb-16 md:mb-20">
+      <div data-aos="fade-up" className="grid gap-6 sm:grid-cols-3 mb-16 md:mb-20">
         <ImageCard
           href="#"
           src="https://images.unsplash.com/photo-1620243318482-fdd2affd7a38?auto=format&q=75&fit=crop&w=750"
