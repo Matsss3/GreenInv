@@ -1,7 +1,7 @@
 interface FeatureProps {
   children?: React.ReactNode,
   title: string,
-  description: string,
+  description?: string,
   minimalistic?: boolean
 };
 
@@ -14,11 +14,11 @@ export const Feature = ({
   return (
     <div className="flex flex-col items-center">
       {minimalistic && (
-        <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-lg bg-[#435334] shadow-lg md:h-14 md:w-14 md:rounded-xl">
+        <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-lg bg-[#435334] shadow-lg md:h-14 md:w-14 md:rounded-xl">
           {children}
         </div>
       ) || (
-        <div className="mb-6 flex h-12 w-12 items-center justify-center md:h-14 md:w-14">
+        <div className="mb-5 flex h-12 w-12 items-center justify-center md:h-14 md:w-14">
           {children}
         </div>
       )}
