@@ -1,20 +1,11 @@
-import { SessionProvider } from "next-auth/react";
-import { auth } from "@/auth";
-import { Navbar } from "./_components/navbar";
-
-const ProtectedLayout = async ({ children }: { children: React.ReactNode }) => {
-  const session = await auth();
-
+const ProtectedLayout = (
+  { children }: { children: React.ReactNode }
+) => {
   return (
-    <SessionProvider session={session}>
-      <div className="h-full bg-sky-100">
-        <Navbar/>
-        <div className="flex h-[80vh] flex-col items-center justify-center">
-          {children}
-        </div>
-      </div>
-    </SessionProvider>
+    <div className="h-full w-full bg-[#FAF1E4] flex items-center justify-center">
+      {children}
+    </div>
   );
-}
+};
 
 export default ProtectedLayout;
