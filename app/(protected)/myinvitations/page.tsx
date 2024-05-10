@@ -2,7 +2,7 @@
 
 import { useCurrentUser } from '@/hooks/useCurrentUser';
 
-const Dashboard = () => {
+const MyInvitations = () => {
   const user = useCurrentUser();
 
   return (
@@ -12,4 +12,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default MyInvitations;
