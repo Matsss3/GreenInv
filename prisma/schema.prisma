@@ -24,6 +24,10 @@ model User {
   accounts      Account[]
   isTFAEnabled  Boolean         @default(false)
   TFConfirm     TFConfirm?
+  invitation    UserInv?
+  planId        Int?
+
+  plan          Plans?          @relation(fields: [planId], references: [id], onDelete: Cascade)
 }
 
 model Account {
@@ -80,6 +84,54 @@ model TFConfirm {
   userId            String
   
   user              User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId])
+}
+
+model Functions {
+  id                Int         @id @default(autoincrement())
+  name              String
+  description       String
+  price             Float
+}
+
+model Plans {
+  id                Int         @id @default(autoincrement())
+  functions         String
+  price             Float
+
+  users             User[]
+}
+
+model DesignTemplate{
+  id                Int         @id @default(autoincrement())
+  name              String
+  fields            String
+  design            Designs?
+
+  userInv           UserInv[]
+
+  @@unique([fields])
+}
+
+model Designs {
+  id                Int         @id @default(autoincrement())
+  templateId        Int @unique
+  design            Bytes
+
+  template          DesignTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
+
+  @@unique([templateId, design])
+}
+
+model UserInv {
+  id                String      @id @default(cuid())
+  userId            String
+  templateId        Int
+  content           String
+
+  user              User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  template          DesignTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
 
   @@unique([userId])
 }
