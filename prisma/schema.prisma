@@ -24,7 +24,7 @@ model User {
   accounts      Account[]
   isTFAEnabled  Boolean         @default(false)
   TFConfirm     TFConfirm?
-  invitation    UserInv?
+  invitation    UserInv[]
   planId        Int?
 
   plan          Plans?          @relation(fields: [planId], references: [id], onDelete: Cascade)
