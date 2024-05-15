@@ -110,8 +110,6 @@ model DesignTemplate{
   design            Designs?
 
   userInv           UserInv[]
-
-  @@unique([fields])
 }
 
 model Designs {
@@ -132,6 +130,4 @@ model UserInv {
 
   user              User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   template          DesignTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
-
-  @@unique([userId])
 }
