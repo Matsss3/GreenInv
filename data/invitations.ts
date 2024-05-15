@@ -13,3 +13,23 @@ export const getInvitationsByUserId = async (userId: string | undefined) => {
     return null;
   }
 };
+
+export const getTemplatesByUserId = async (userId: string | undefined) => {
+  const existingUser = await db.user.findUnique({
+    where: {
+      id: userId
+    }
+  });
+
+  if (!existingUser) return null;
+
+  if (existingUser.role !== "ADMIN") return null;
+
+  try {
+    const templates = await db.designTemplate.findMany();
+
+    return templates;
+  } catch (error) {
+    return null;
+  }
+};

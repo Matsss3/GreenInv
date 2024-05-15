@@ -48,6 +48,12 @@ export const Navbar = () => {
             >
               <Link href="/settings">Ajustes</Link>
             </Button>
+            <Button
+              variant={pathname === "/templates" ? "default" : "outline"}
+              asChild
+            >
+              <Link href="/templates">Plantillas</Link>
+            </Button>
           </>
         )}
       </nav>
